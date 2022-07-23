@@ -4,13 +4,13 @@ import PropTypes from "prop-types"
 
 export const ImageGallery = ({images, openImage}) => {
     return (
-        <ul className={css.ImageGallery}>
+        images.length > 0 && (<ul className={css.ImageGallery}>
             {images.map(image => <ImageGalleryItem key={image.id} image={image} openImage={openImage} />)}
-        </ul>
+        </ul>)
     )
 }
 
 ImageGallery.propTypes = {
     images: PropTypes.arrayOf(PropTypes.object).isRequired,
-    openImage: PropTypes.func,
+    openImage: PropTypes.func.isRequired,
 }

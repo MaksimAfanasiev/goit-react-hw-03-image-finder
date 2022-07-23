@@ -43,9 +43,14 @@ export class App extends Component {
     this.setState({isLoading: true})
     const response = await fetch(URL);
     const data = await response.json();
-    
+
+    const images = data.hits.map(({id, webformatURL, largeImageURL, tags}) => {
+        return {id, webformatURL, largeImageURL, tags}
+      }
+    )
+
     this.setState({isLoading: false})
-    return data.hits;
+    return images;
   }
 
   onLoadMoreClick = () => {
@@ -67,9 +72,9 @@ export class App extends Component {
       <div className={css.App}>
         <Searchbar onSubmit={this.getQuery} />
 
-        {isLoading && <TailSpin height="80" width="80" color='grey' ariaLabel='loading' />}
-        
         <ImageGallery images={images} openImage={this.openModal} />
+
+        {isLoading && <TailSpin height="80" width="80" color='grey' ariaLabel='loading' />}
 
         {images.length > 0 && <Button onClick={this.onLoadMoreClick} />}
 
